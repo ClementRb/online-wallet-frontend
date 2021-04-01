@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-const AuthForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit }) => {
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function onSubmitForm(e) {
         e.preventDefault();
         onSubmit({
+            firstname,
+            lastname,
             email,
             password,
         });
@@ -17,6 +21,17 @@ const AuthForm = ({ onSubmit }) => {
     return (
         <div>
             <Form onSubmit={onSubmitForm}>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridFirtName">
+                        <Form.Label>Firstname</Form.Label>
+                        <Form.Control type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridLastname">
+                        <Form.Label>Lastname</Form.Label>
+                        <Form.Control type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+                    </Form.Group>
+                </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridEmail">
                         <Form.Label>Email</Form.Label>
@@ -37,8 +52,8 @@ const AuthForm = ({ onSubmit }) => {
     );
 };
 
-export default AuthForm;
+export default RegisterForm;
 
-AuthForm.propTypes = {
+RegisterForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
 };
